@@ -1,3 +1,11 @@
+/*-----------------------------------------------------------------------------------
+ * Name:        final_grade_assignment.c
+ * Purpose:     Calculate final grade for C programming class
+ * Notes:       Best attempt at a final grade calculator for a C programming class. 
+                Program includes exception handling for invalid inputs and divide by zero errors.
+
+-----------------------------------------------------------------------------------*/
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
@@ -10,9 +18,10 @@ void calculate_average();
 void calculate_grade();
 char get_letter_grade(int);
 
+// Note: had to change labs to laboratories because labs is a function in stdlib.h and was causing a conflict.
 int tests[3], num_tests = 0;
 int programs[7], num_programs = 0;
-int labs[9], num_labs = 0;
+int laboratories[9], num_laboratories = 0;
 int exercises[9], num_exercises = 0;
 int attendance[1], num_attendance = 0;
 
@@ -91,7 +100,7 @@ void enter_data() {
         } else if (strstr(category, "programs")) {
             programs[num_programs++] = score;
         } else if (strstr(category, "labs")) {
-            labs[num_labs++] = score;
+            laboratories[num_laboratories++] = score;
                 } else if (strstr(category, "exercises")) {
             exercises[num_exercises++] = score;
         } else if (strstr(category, "attendance")) {
@@ -116,10 +125,10 @@ void calculate_average() {
         }
         count = num_programs;
     } else if (strstr(category, "labs")) {
-        for (int i = 0; i < num_labs; ++i) {
-            total += labs[i];
+        for (int i = 0; i < num_laboratories; ++i) {
+            total += laboratories[i];
         }
-        count = num_labs;
+        count = num_laboratories;
     } else if (strstr(category, "exercises")) {
         for (int i = 0; i < num_exercises; ++i) {
             total += exercises[i];
@@ -139,16 +148,16 @@ void calculate_average() {
 }
 
 void calculate_grade() {
-    if (num_tests != 3 || num_programs == 0 || num_labs == 0 || num_exercises == 0 || num_attendance == 0) {
+    if (num_tests != 3 || num_programs == 0 || num_laboratories == 0 || num_exercises == 0 || num_attendance == 0) {
         printf("Enter scores for all assignments before calculating grade.\n");
         return;
     }
 
     int lab_avg = 0, program_avg = 0, exercise_avg = 0, attend = 0;
-    for (int i = 0; i < num_labs; ++i) {
-        lab_avg += labs[i];
+    for (int i = 0; i < num_laboratories; ++i) {
+        lab_avg += laboratories[i];
     }
-    lab_avg = lab_avg * 0.2 / num_labs;
+    lab_avg = lab_avg * 0.2 / num_laboratories;
 
     for (int i = 0; i < num_programs; ++i) {
         program_avg += programs[i];
